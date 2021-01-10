@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class MonthOverview extends StatelessWidget {
@@ -11,10 +9,8 @@ class MonthOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 120,
+    return Card(
       child: Card(
-        shadowColor: Colors.yellowAccent.shade700,
         elevation: 5,
         margin: EdgeInsets.all(15),
         child: Row(
