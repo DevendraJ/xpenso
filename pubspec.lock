@@ -101,7 +101,7 @@ packages:
     source: hosted
     version: "1.8.0-nullsafety.2"
   stack_trace:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: stack_trace
       url: "https://pub.dartlang.org"

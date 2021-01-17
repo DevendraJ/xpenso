@@ -38,10 +38,39 @@ class _ExpenseAndIncomeFormState extends State<ExpenseAndIncomeForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextFormField(
-              keyboardType: TextInputType.number,
-              maxLines: 1,
-              decoration: InputDecoration(labelText: 'Amount'),
+            SizedBox(height: 15),
+            Container(
+              margin: EdgeInsets.only(left: 10, right: 10),
+              height: 80,
+              width: MediaQuery.of(context).size.width - 30,
+              child: Card(
+                elevation: 5,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'INR',
+                      style: TextStyle(
+                        fontSize: 30,
+                        // fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 100,
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             SizedBox(height: 20),
             Text(
