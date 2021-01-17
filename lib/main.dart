@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xpenso/utility/data_store.dart';
 import 'package:xpenso/widgets/month_overview.dart';
+import 'package:xpenso/widgets/new_transaction.dart';
 import 'package:xpenso/widgets/transaction_list.dart';
 
 void main() {
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.yellowAccent.shade700,
         accentColor: Colors.orange[900],
       ),
+      routes: {
+        "/home": (_) => MyHomePage(),
+      },
     );
   }
 }
@@ -71,7 +75,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) {
+                return NewTransaction();
+              },
+            ),
+          );
+        },
         child: Icon(Icons.add),
       ),
     );
