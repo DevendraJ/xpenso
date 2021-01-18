@@ -74,7 +74,7 @@ class _ExpenseAndIncomeFormState extends State<ExpenseAndIncomeForm> {
             ),
             SizedBox(height: 20),
             Text(
-              'Select Category',
+              'Select ${widget.isExpense ? 'Expense' : 'Income'} Category',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,

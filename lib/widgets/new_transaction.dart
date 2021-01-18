@@ -7,44 +7,37 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
+  var currentSelected = 1;
   @override
   Widget build(BuildContext context) {
-    final tabNames = ['Expense', 'Income', 'Transfer'];
+    var dropDown = DropdownButtonHideUnderline(
+      child: DropdownButton(
+          value: currentSelected,
+          items: [
+            DropdownMenuItem(child: Text('Expense'), value: 1),
+            DropdownMenuItem(child: Text('Income'), value: 2),
+            DropdownMenuItem(child: Text('Transfer'), value: 3)
+          ],
+          onChanged: (currentSelectedItem) {
+            setState(() {
+              currentSelected = currentSelectedItem;
+            });
+          }),
+    );
 
     var transferForm = Form(
       key: GlobalKey<FormState>(),
       child: Column(),
     );
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Add New Transaction'),
-          bottom: TabBar(
-            indicatorColor: Colors.grey,
-            labelStyle: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-            tabs: [
-              ...tabNames.map((name) {
-                return Text(
-                  name,
-                  style: TextStyle(),
-                );
-              })
-            ],
-          ),
-        ),
-        body: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            ExpenseAndIncomeForm(isExpense: true),
-            ExpenseAndIncomeForm(isExpense: false),
-            transferForm
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: dropDown,
       ),
+      body: (currentSelected == 1)
+          ? ExpenseAndIncomeForm(isExpense: true)
+          : (currentSelected == 2)
+              ? ExpenseAndIncomeForm(isExpense: false)
+              : transferForm,
     );
   }
 }
