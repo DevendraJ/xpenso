@@ -103,14 +103,12 @@ class _ExpenseAndIncomeFormState extends State<ExpenseAndIncomeForm> {
             ),
             Container(
               height: 100,
-              child: GridView.count(
+              child: ListView(
                 scrollDirection: Axis.horizontal,
-                childAspectRatio: 5 / 4,
-                crossAxisCount: 1,
                 children: [...accounts],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             TextFormField(
               keyboardType: TextInputType.text,
               maxLines: 1,
