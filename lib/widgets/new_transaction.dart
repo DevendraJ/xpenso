@@ -40,13 +40,11 @@ class _NewTransactionState extends State<NewTransaction> {
           }),
     );
 
-    var transferForm = Form(
-      key: GlobalKey<FormState>(),
-      child: Column(),
-    );
-
-    Form getExpenseIncomeForm({bool isExpense}) {
-      return Form(
+    return Scaffold(
+      appBar: AppBar(
+        title: dropDown,
+      ),
+      body: Form(
         key: GlobalKey<FormState>(),
         child: SingleChildScrollView(
           child: Column(
@@ -87,28 +85,35 @@ class _NewTransactionState extends State<NewTransaction> {
                 ),
               ),
               SizedBox(height: 20),
-              Text(
-                'Select ${isExpense ? 'Expense' : 'Income'} Category',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.black54,
+              if (currentSelected != CategoryType.transfer)
+                Text(
+                  'Select Category',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.black54,
+                  ),
                 ),
-              ),
-              Container(
-                height: 250,
-                child: GridView.count(
-                  scrollDirection: Axis.horizontal,
-                  childAspectRatio: 3 / 2,
-                  crossAxisCount: 2,
-                  children: [
-                    ...(isExpense ? expenseCategories : incomeCategories)
-                  ],
+              if (currentSelected != CategoryType.transfer)
+                Container(
+                  height: 250,
+                  child: GridView.count(
+                    scrollDirection: Axis.horizontal,
+                    childAspectRatio: 3 / 2,
+                    crossAxisCount: 2,
+                    children: [
+                      ...((currentSelected == CategoryType.expense)
+                          ? expenseCategories
+                          : incomeCategories)
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
+              if (currentSelected != CategoryType.transfer)
+                SizedBox(height: 10),
               Text(
-                'Select Account',
+                (currentSelected != CategoryType.transfer)
+                    ? 'Select Account'
+                    : 'Select From Account',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -122,6 +127,24 @@ class _NewTransactionState extends State<NewTransaction> {
                   children: [...accounts],
                 ),
               ),
+              SizedBox(height: 10),
+              if (currentSelected == CategoryType.transfer)
+                Text(
+                  'Select To Account',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.black54,
+                  ),
+                ),
+              if (currentSelected == CategoryType.transfer)
+                Container(
+                  height: 100,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [...accounts],
+                  ),
+                ),
               SizedBox(height: 10),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -154,18 +177,7 @@ class _NewTransactionState extends State<NewTransaction> {
             ],
           ),
         ),
-      );
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        title: dropDown,
       ),
-      body: (currentSelected == CategoryType.expense)
-          ? getExpenseIncomeForm(isExpense: true)
-          : (currentSelected == CategoryType.income)
-              ? getExpenseIncomeForm(isExpense: false)
-              : transferForm,
     );
   }
 }
