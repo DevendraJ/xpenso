@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Xpenso',
       home: MyHomePage(),
       theme: ThemeData(
-        primaryColor: Colors.yellowAccent.shade700,
+        primaryColor: Colors.white,
         accentColor: Colors.orange[900],
       ),
       routes: {

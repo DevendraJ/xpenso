@@ -21,6 +21,14 @@ class _NewTransactionState extends State<NewTransaction> {
   var incomeCategories = DataStore.getCategories
       .map((category) => GridViewItem(category, false, null));
 
+  var _formKey = GlobalKey<FormState>();
+  var amountController;
+  @override
+  void initState() {
+    super.initState();
+    amountController = TextEditingController(text: '0');
+  }
+
   @override
   Widget build(BuildContext context) {
     var dropDown = DropdownButtonHideUnderline(
@@ -45,7 +53,7 @@ class _NewTransactionState extends State<NewTransaction> {
         title: dropDown,
       ),
       body: Form(
-        key: GlobalKey<FormState>(),
+        key: _formKey,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,6 +80,8 @@ class _NewTransactionState extends State<NewTransaction> {
                       SizedBox(
                         width: 100,
                         child: TextFormField(
+                          textAlign: TextAlign.center,
+                          controller: amountController,
                           keyboardType: TextInputType.number,
                           maxLines: 1,
                           decoration: InputDecoration(
@@ -169,7 +179,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     height: 60,
                     onPressed: () {},
                     child: Text('Save'),
-                    color: Colors.yellowAccent.shade700,
+                    color: Colors.indigo[300],
                     minWidth: MediaQuery.of(context).size.width / 2,
                   )
                 ],
