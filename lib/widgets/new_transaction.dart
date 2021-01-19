@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xpenso/constants/category_type.dart';
 import 'package:xpenso/utility/data_store.dart';
 
 import 'grid_view_item.dart';
@@ -9,7 +10,7 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  var currentSelected = 1;
+  var currentSelected = CategoryType.expense;
 
   var accounts = DataStore.getCategories
       .map((account) => GridViewItem(account, false, null));
@@ -26,9 +27,11 @@ class _NewTransactionState extends State<NewTransaction> {
       child: DropdownButton(
           value: currentSelected,
           items: [
-            DropdownMenuItem(child: Text('Expense'), value: 1),
-            DropdownMenuItem(child: Text('Income'), value: 2),
-            DropdownMenuItem(child: Text('Transfer'), value: 3)
+            DropdownMenuItem(
+                child: Text('Expense'), value: CategoryType.expense),
+            DropdownMenuItem(child: Text('Income'), value: CategoryType.income),
+            DropdownMenuItem(
+                child: Text('Transfer'), value: CategoryType.transfer)
           ],
           onChanged: (currentSelectedItem) {
             setState(() {
@@ -158,9 +161,9 @@ class _NewTransactionState extends State<NewTransaction> {
       appBar: AppBar(
         title: dropDown,
       ),
-      body: (currentSelected == 1)
+      body: (currentSelected == CategoryType.expense)
           ? getExpenseIncomeForm(isExpense: true)
-          : (currentSelected == 2)
+          : (currentSelected == CategoryType.income)
               ? getExpenseIncomeForm(isExpense: false)
               : transferForm,
     );
