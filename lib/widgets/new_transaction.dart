@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xpenso/constants/category_type.dart';
 import 'package:xpenso/utility/data_store.dart';
+import 'package:xpenso/widgets/list_view_text_item.dart';
 
 import 'grid_view_item.dart';
 
@@ -24,15 +25,13 @@ class _NewTransactionState extends State<NewTransaction> {
     _selectedIncomeCategory = -1;
   }
 
-  var accounts = DataStore.getCategories
-      .map((account) => GridViewItem(account, false, Colors.indigo[300]));
-
+  var accounts = DataStore.getAccounts;
   var expenseCategories = DataStore.getCategories;
-
   var incomeCategories = DataStore.getCategories;
 
   var _formKey = GlobalKey<FormState>();
   var amountController;
+
   @override
   void initState() {
     super.initState();
@@ -170,10 +169,25 @@ class _NewTransactionState extends State<NewTransaction> {
                 ),
               ),
               Container(
-                height: 100,
+                height: 70,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
-                  children: [...accounts],
+                  children: [
+                    ...accounts.map((account) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedFromAccount = account.id;
+                          });
+                        },
+                        child: ListViewTextItem(
+                          account.title,
+                          _selectedFromAccount == account.id,
+                          Colors.indigo[300],
+                        ),
+                      );
+                    })
+                  ],
                 ),
               ),
               SizedBox(height: 10),
@@ -188,10 +202,25 @@ class _NewTransactionState extends State<NewTransaction> {
                 ),
               if (currentSelected == CategoryType.transfer)
                 Container(
-                  height: 100,
+                  height: 70,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: [...accounts],
+                    children: [
+                      ...accounts.map((account) {
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _selectedToAccount = account.id;
+                            });
+                          },
+                          child: ListViewTextItem(
+                            account.title,
+                            (_selectedToAccount == account.id),
+                            Colors.indigo[300],
+                          ),
+                        );
+                      })
+                    ],
                   ),
                 ),
               SizedBox(height: 10),

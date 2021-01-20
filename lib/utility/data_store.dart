@@ -119,9 +119,9 @@ class DataStore {
   }
 
   static var _accounts = [
-    Account(title: 'Syndicate', currBalance: 1007.0),
-    Account(title: 'Axis', currBalance: 20.7),
-    Account(title: 'Savings', currBalance: 0.0),
+    Account(title: 'Syndicate', currBalance: 1007.0, id: 0),
+    Account(title: 'Axis', currBalance: 20.7, id: 1),
+    Account(title: 'Savings', currBalance: 0.0, id: 2),
   ];
 
   static List<Account> get getAccounts {
