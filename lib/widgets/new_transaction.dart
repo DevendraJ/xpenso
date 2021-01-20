@@ -12,14 +12,24 @@ class NewTransaction extends StatefulWidget {
 class _NewTransactionState extends State<NewTransaction> {
   var currentSelected = CategoryType.expense;
 
+  int _selectedFromAccount = -1;
+  int _selectedToAccount = -1;
+  int _selectedExpenseCategory = -1;
+  int _selectedIncomeCategory = -1;
+
+  void _resetSelectedItems() {
+    _selectedFromAccount = -1;
+    _selectedToAccount = -1;
+    _selectedExpenseCategory = -1;
+    _selectedIncomeCategory = -1;
+  }
+
   var accounts = DataStore.getCategories
-      .map((account) => GridViewItem(account, false, null));
+      .map((account) => GridViewItem(account, false, Colors.indigo[300]));
 
-  var expenseCategories = DataStore.getCategories
-      .map((category) => GridViewItem(category, false, null));
+  var expenseCategories = DataStore.getCategories;
 
-  var incomeCategories = DataStore.getCategories
-      .map((category) => GridViewItem(category, false, null));
+  var incomeCategories = DataStore.getCategories;
 
   var _formKey = GlobalKey<FormState>();
   var amountController;
@@ -44,6 +54,7 @@ class _NewTransactionState extends State<NewTransaction> {
           onChanged: (currentSelectedItem) {
             setState(() {
               currentSelected = currentSelectedItem;
+              _resetSelectedItems();
             });
           }),
     );
@@ -112,9 +123,37 @@ class _NewTransactionState extends State<NewTransaction> {
                     childAspectRatio: 3 / 2,
                     crossAxisCount: 2,
                     children: [
-                      ...((currentSelected == CategoryType.expense)
-                          ? expenseCategories
-                          : incomeCategories)
+                      ...(currentSelected == CategoryType.expense)
+                          ? (expenseCategories.map((category) {
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(
+                                    () {
+                                      _selectedExpenseCategory = category.id;
+                                    },
+                                  );
+                                },
+                                child: GridViewItem(
+                                    category,
+                                    category.id == _selectedExpenseCategory,
+                                    Colors.indigo[300]),
+                              );
+                            }))
+                          : (incomeCategories.map((category) {
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(
+                                    () {
+                                      _selectedIncomeCategory = category.id;
+                                    },
+                                  );
+                                },
+                                child: GridViewItem(
+                                    category,
+                                    category.id == _selectedIncomeCategory,
+                                    Colors.indigo[300]),
+                              );
+                            }))
                     ],
                   ),
                 ),
@@ -172,7 +211,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     },
                     height: 60,
                     child: Text('Cancel'),
-                    color: Colors.grey[400],
+                    color: Colors.grey[300],
                     minWidth: MediaQuery.of(context).size.width / 2,
                   ),
                   FlatButton(
