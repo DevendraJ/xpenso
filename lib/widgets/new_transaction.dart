@@ -1,3 +1,4 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:xpenso/constants/category_type.dart';
 import 'package:xpenso/utility/data_store.dart';
@@ -28,14 +29,17 @@ class _NewTransactionState extends State<NewTransaction> {
   var accounts = DataStore.getAccounts;
   var expenseCategories = DataStore.getCategories;
   var incomeCategories = DataStore.getCategories;
+  var txDate = DateTime.now();
 
   var _formKey = GlobalKey<FormState>();
   var amountController;
+  var dateController;
 
   @override
   void initState() {
     super.initState();
     amountController = TextEditingController(text: '0');
+    dateController = TextEditingController();
   }
 
   @override
@@ -168,6 +172,7 @@ class _NewTransactionState extends State<NewTransaction> {
                   color: Colors.black54,
                 ),
               ),
+              SizedBox(height: 10),
               Container(
                 height: 70,
                 child: ListView(
@@ -200,6 +205,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     color: Colors.black54,
                   ),
                 ),
+              SizedBox(height: 10),
               if (currentSelected == CategoryType.transfer)
                 Container(
                   height: 70,
@@ -224,12 +230,24 @@ class _NewTransactionState extends State<NewTransaction> {
                   ),
                 ),
               SizedBox(height: 10),
+              DateTimePicker(
+                firstDate: DateTime(2000),
+                lastDate: DateTime(3000),
+                decoration: InputDecoration(
+                  labelText: 'Transaction Date',
+                  prefixIcon: Icon(Icons.calendar_today),
+                ),
+                controller: dateController,
+              ),
+              SizedBox(height: 10),
               TextFormField(
                 keyboardType: TextInputType.text,
                 maxLines: 1,
                 decoration: InputDecoration(
-                  labelText: 'Description',
-                ),
+                    labelText: 'Description',
+                    prefixIcon: Icon(
+                      Icons.message,
+                    )),
               ),
               SizedBox(height: 20),
               Row(

@@ -82,6 +82,10 @@ class DataStore {
     return _transactions;
   }
 
+  static void addTx(Transaction tx) {
+    _transactions.add(tx);
+  }
+
   static void removeTx(int txId) {
     _transactions.removeWhere((tx) => tx.id == txId);
   }
