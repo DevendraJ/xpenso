@@ -16,7 +16,7 @@ class TransactionList extends StatelessWidget {
           ...txList.map((tx) {
             return Card(
               child: ListTile(
-                title: Text(tx.title),
+                title: Text(tx.description),
                 subtitle: Text(tx.amount.toStringAsFixed(2)),
                 leading: FlutterLogo(),
                 trailing: IconButton(

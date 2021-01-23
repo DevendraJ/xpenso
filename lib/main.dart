@@ -42,6 +42,16 @@ class _MyHomePageState extends State<MyHomePage> {
   var expense = DataStore.txSum['expense'];
   var balance = DataStore.txSum['balance'];
 
+  @override
+  void initState() {
+    super.initState();
+
+    _userTransactions = DataStore.txList;
+    income = DataStore.txSum['income'];
+    expense = DataStore.txSum['expense'];
+    balance = DataStore.txSum['balance'];
+  }
+
   void _removeTransaction(int txId) {
     DataStore.removeTx(txId);
     setState(() {

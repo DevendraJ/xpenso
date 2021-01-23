@@ -1,16 +1,25 @@
 import 'package:flutter/foundation.dart';
+import 'package:xpenso/constants/category_type.dart';
 
 class Transaction {
-  final int id;
-  final String title;
-  final double amount;
-  final DateTime txDate;
-  final DateTime updatedOn = DateTime.now();
+  int id;
+  String description;
+  double amount;
+  DateTime txDate;
+  DateTime updatedOn = DateTime.now();
+  CategoryType categoryType;
+  int primaryAccountId;
+  int secondaryAccountId;
+  int categoryId;
 
   Transaction({
-    @required this.id,
-    @required this.title,
+    this.id,
+    @required this.description,
     @required this.amount,
     @required this.txDate,
+    @required this.categoryType,
+    @required this.primaryAccountId,
+    this.secondaryAccountId,
+    this.categoryId,
   });
 }

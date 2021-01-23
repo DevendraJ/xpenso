@@ -1,7 +1,9 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:xpenso/constants/category_type.dart';
+import 'package:xpenso/model/transaction.dart';
 import 'package:xpenso/utility/data_store.dart';
+import 'package:xpenso/utility/user_input_exception.dart';
 import 'package:xpenso/widgets/list_view_text_item.dart';
 
 import 'grid_view_item.dart';
@@ -12,7 +14,7 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  var currentSelected = CategoryType.expense;
+  var _selectedCategoryType = CategoryType.expense;
 
   int _selectedFromAccount = -1;
   int _selectedToAccount = -1;
@@ -20,33 +22,67 @@ class _NewTransactionState extends State<NewTransaction> {
   int _selectedIncomeCategory = -1;
 
   void _resetSelectedItems() {
-    _selectedFromAccount = -1;
-    _selectedToAccount = -1;
-    _selectedExpenseCategory = -1;
-    _selectedIncomeCategory = -1;
+    setState(() {
+      _selectedFromAccount = -1;
+      _selectedToAccount = -1;
+      _selectedExpenseCategory = -1;
+      _selectedIncomeCategory = -1;
+    });
   }
 
-  var accounts = DataStore.getAccounts;
-  var expenseCategories = DataStore.getCategories;
-  var incomeCategories = DataStore.getCategories;
-  var txDate = DateTime.now();
+  var _accounts = DataStore.getAccounts;
+  var _expenseCategories = DataStore.getCategories;
+  var _incomeCategories = DataStore.getCategories;
+  var _txDate = DateTime.now();
 
   var _formKey = GlobalKey<FormState>();
-  var amountController;
-  var dateController;
+  TextEditingController amountController;
+  TextEditingController descController;
 
   @override
   void initState() {
     super.initState();
     amountController = TextEditingController(text: '0');
-    dateController = TextEditingController();
+    descController = TextEditingController();
+  }
+
+  void saveTransaction() {
+    var amount = amountController.text;
+    if (amount == null) {
+      throw UserInputException('Amount is not entered!');
+    }
+
+    if (_txDate == null) {
+      throw UserInputException('Date is not selected!');
+    }
+
+    if (_selectedCategoryType == CategoryType.expense) {
+      if (_selectedExpenseCategory == -1) {
+        throw UserInputException('Expense Category is not selected!');
+      }
+
+      if (_selectedFromAccount == -1) {
+        throw UserInputException('Account is not seleted!');
+      }
+
+      DataStore.addTx(Transaction(
+        description: descController.text,
+        amount: double.parse(amount),
+        txDate: _txDate,
+        categoryType: _selectedCategoryType,
+        primaryAccountId: _selectedFromAccount,
+        categoryId: 0,
+      ));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    var _scaffoldKey = GlobalKey<ScaffoldState>();
+
     var dropDown = DropdownButtonHideUnderline(
       child: DropdownButton(
-          value: currentSelected,
+          value: _selectedCategoryType,
           items: [
             DropdownMenuItem(
                 child: Text('Expense'), value: CategoryType.expense),
@@ -56,13 +92,14 @@ class _NewTransactionState extends State<NewTransaction> {
           ],
           onChanged: (currentSelectedItem) {
             setState(() {
-              currentSelected = currentSelectedItem;
+              _selectedCategoryType = currentSelectedItem;
               _resetSelectedItems();
             });
           }),
     );
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: dropDown,
       ),
@@ -109,7 +146,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 ),
               ),
               SizedBox(height: 20),
-              if (currentSelected != CategoryType.transfer)
+              if (_selectedCategoryType != CategoryType.transfer)
                 Text(
                   'Select Category',
                   style: TextStyle(
@@ -118,7 +155,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     color: Colors.black54,
                   ),
                 ),
-              if (currentSelected != CategoryType.transfer)
+              if (_selectedCategoryType != CategoryType.transfer)
                 Container(
                   height: 250,
                   child: GridView.count(
@@ -126,8 +163,8 @@ class _NewTransactionState extends State<NewTransaction> {
                     childAspectRatio: 3 / 2,
                     crossAxisCount: 2,
                     children: [
-                      ...(currentSelected == CategoryType.expense)
-                          ? (expenseCategories.map((category) {
+                      ...(_selectedCategoryType == CategoryType.expense)
+                          ? (_expenseCategories.map((category) {
                               return GestureDetector(
                                 onTap: () {
                                   setState(
@@ -142,7 +179,7 @@ class _NewTransactionState extends State<NewTransaction> {
                                     Colors.indigo[300]),
                               );
                             }))
-                          : (incomeCategories.map((category) {
+                          : (_incomeCategories.map((category) {
                               return GestureDetector(
                                 onTap: () {
                                   setState(
@@ -160,10 +197,10 @@ class _NewTransactionState extends State<NewTransaction> {
                     ],
                   ),
                 ),
-              if (currentSelected != CategoryType.transfer)
+              if (_selectedCategoryType != CategoryType.transfer)
                 SizedBox(height: 10),
               Text(
-                (currentSelected != CategoryType.transfer)
+                (_selectedCategoryType != CategoryType.transfer)
                     ? 'Select Account'
                     : 'Select From Account',
                 style: TextStyle(
@@ -178,7 +215,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    ...accounts.map((account) {
+                    ..._accounts.map((account) {
                       return GestureDetector(
                         onTap: () {
                           setState(() {
@@ -196,7 +233,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 ),
               ),
               SizedBox(height: 10),
-              if (currentSelected == CategoryType.transfer)
+              if (_selectedCategoryType == CategoryType.transfer)
                 Text(
                   'Select To Account',
                   style: TextStyle(
@@ -206,13 +243,13 @@ class _NewTransactionState extends State<NewTransaction> {
                   ),
                 ),
               SizedBox(height: 10),
-              if (currentSelected == CategoryType.transfer)
+              if (_selectedCategoryType == CategoryType.transfer)
                 Container(
                   height: 70,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
-                      ...accounts.map((account) {
+                      ..._accounts.map((account) {
                         return GestureDetector(
                           onTap: () {
                             setState(() {
@@ -233,11 +270,16 @@ class _NewTransactionState extends State<NewTransaction> {
               DateTimePicker(
                 firstDate: DateTime(2000),
                 lastDate: DateTime(3000),
+                initialValue: DateTime.now().toString(),
                 decoration: InputDecoration(
                   labelText: 'Transaction Date',
                   prefixIcon: Icon(Icons.calendar_today),
                 ),
-                controller: dateController,
+                onChanged: (selectedDate) {
+                  setState(() {
+                    _txDate = DateTime.parse(selectedDate);
+                  });
+                },
               ),
               SizedBox(height: 10),
               TextFormField(
@@ -248,6 +290,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     prefixIcon: Icon(
                       Icons.message,
                     )),
+                controller: descController,
               ),
               SizedBox(height: 20),
               Row(
@@ -263,10 +306,19 @@ class _NewTransactionState extends State<NewTransaction> {
                   ),
                   FlatButton(
                     height: 60,
-                    onPressed: () {},
                     child: Text('Save'),
                     color: Colors.indigo[300],
                     minWidth: MediaQuery.of(context).size.width / 2,
+                    onPressed: () {
+                      try {
+                        saveTransaction();
+                        Navigator.of(context).pop();
+                      } on UserInputException catch (e) {
+                        _scaffoldKey.currentState.showSnackBar(SnackBar(
+                          content: Text(e.cause),
+                        ));
+                      }
+                    },
                   )
                 ],
               ),
