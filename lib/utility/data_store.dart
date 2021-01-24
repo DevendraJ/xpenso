@@ -103,7 +103,7 @@ class DataStore {
     ),
   ];
 
-  static List<Transaction> get txList {
+  static List<Transaction> getTransactionsForMonth(DateTime dataMonth) {
     return _transactions;
   }
 
@@ -121,7 +121,7 @@ class DataStore {
     "balance": 17.0
   };
 
-  static Map<String, double> get txSum {
+  static Map<String, double> getTxSumForMonth(DateTime dataMonth) {
     return DataStore._txSummation;
   }
 

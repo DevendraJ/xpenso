@@ -1,4 +1,6 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:xpenso/utility/data_store.dart';
 import 'package:xpenso/widgets/app_drawer.dart';
 import 'package:xpenso/widgets/month_overview.dart';
@@ -34,39 +36,68 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var appBar = AppBar(
-    title: Text('Xpenso'),
-  );
+  var dataMonth;
+  var dataMonthText;
+  var formatter = DateFormat('yyyy - MMM');
 
-  var _userTransactions = DataStore.txList;
-  var income = DataStore.txSum['income'];
-  var expense = DataStore.txSum['expense'];
-  var balance = DataStore.txSum['balance'];
+  AppBar getAppBar(context) {
+    var appBar = AppBar(
+      title: RaisedButton(
+        elevation: 5,
+        color: Colors.orange[200],
+        child: Text(dataMonthText),
+        onPressed: () {
+          showMonthPicker(
+            context: context,
+            initialDate: DateTime.now(),
+          ).then((selectedMonth) {
+            setState(() {
+              if (selectedMonth != null) {
+                dataMonth = selectedMonth;
+                dataMonthText = formatter.format(selectedMonth);
+              }
+              _loadData();
+            });
+          });
+        },
+      ),
+    );
+    return appBar;
+  }
+
+  var _userTransactions;
+  var income;
+  var expense;
+  var balance;
 
   @override
   void initState() {
     super.initState();
+    dataMonth = DateTime.now();
+    dataMonthText = formatter.format(dataMonth);
     _loadData();
   }
 
   void _loadData() {
     setState(() {
-      _userTransactions = DataStore.txList;
-      income = DataStore.txSum['income'];
-      expense = DataStore.txSum['expense'];
-      balance = DataStore.txSum['balance'];
+      _userTransactions = DataStore.getTransactionsForMonth(dataMonth);
+      var txSum = DataStore.getTxSumForMonth(dataMonth);
+      income = txSum['income'];
+      expense = txSum['expense'];
+      balance = txSum['balance'];
     });
   }
 
   void _removeTransaction(int txId) {
     DataStore.removeTx(txId);
     setState(() {
-      _userTransactions = DataStore.txList;
+      _userTransactions = DataStore.getTransactionsForMonth(dataMonth);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    var appBar = getAppBar(context);
     var remainingHeight = MediaQuery.of(context).size.height -
         MediaQuery.of(context).padding.top -
         appBar.preferredSize.height;
