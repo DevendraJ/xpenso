@@ -33,6 +33,7 @@ class MonthOverview extends StatelessWidget {
             Text(
               '|',
               style: TextStyle(
+                color: Colors.grey[400],
                 fontSize: 30,
                 fontWeight: FontWeight.w100,
               ),
@@ -53,6 +54,7 @@ class MonthOverview extends StatelessWidget {
             Text(
               '|',
               style: TextStyle(
+                color: Colors.grey[400],
                 fontSize: 30,
                 fontWeight: FontWeight.w100,
               ),

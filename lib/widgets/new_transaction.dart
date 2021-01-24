@@ -191,9 +191,8 @@ class _NewTransactionState extends State<NewTransaction> {
                 Text(
                   'Select Category',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     fontSize: 20,
-                    color: Colors.black54,
                   ),
                 ),
               if (_selectedCategoryType != CategoryType.transfer)
@@ -245,9 +244,8 @@ class _NewTransactionState extends State<NewTransaction> {
                     ? 'Select Account'
                     : 'Select From Account',
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontSize: 20,
-                  color: Colors.black54,
                 ),
               ),
               SizedBox(height: 10),
@@ -278,9 +276,8 @@ class _NewTransactionState extends State<NewTransaction> {
                 Text(
                   'Select To Account',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     fontSize: 20,
-                    color: Colors.black54,
                   ),
                 ),
               SizedBox(height: 10),

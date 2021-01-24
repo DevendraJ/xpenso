@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xpenso/utility/data_store.dart';
+import 'package:xpenso/widgets/app_drawer.dart';
 import 'package:xpenso/widgets/month_overview.dart';
 import 'package:xpenso/widgets/new_transaction.dart';
 import 'package:xpenso/widgets/transaction_list.dart';
@@ -72,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: appBar,
+      drawer: AppDrawer(),
       body: Column(
         children: [
           Container(
@@ -98,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
           );
-          if (needsRefresh) {
+          if (needsRefresh != null && needsRefresh) {
             _loadData();
           }
         },
