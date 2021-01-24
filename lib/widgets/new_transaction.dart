@@ -297,7 +297,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 children: [
                   FlatButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pop(false);
                     },
                     height: 60,
                     child: Text('Cancel'),
@@ -312,7 +312,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     onPressed: () {
                       try {
                         saveTransaction();
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pop(true);
                       } on UserInputException catch (e) {
                         _scaffoldKey.currentState.showSnackBar(SnackBar(
                           content: Text(e.cause),

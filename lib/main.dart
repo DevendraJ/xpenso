@@ -45,11 +45,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    _loadData();
+  }
 
-    _userTransactions = DataStore.txList;
-    income = DataStore.txSum['income'];
-    expense = DataStore.txSum['expense'];
-    balance = DataStore.txSum['balance'];
+  void _loadData() {
+    setState(() {
+      _userTransactions = DataStore.txList;
+      income = DataStore.txSum['income'];
+      expense = DataStore.txSum['expense'];
+      balance = DataStore.txSum['balance'];
+    });
   }
 
   void _removeTransaction(int txId) {
@@ -85,14 +90,17 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
+        onPressed: () async {
+          bool needsRefresh = await Navigator.of(context).push(
             MaterialPageRoute(
               builder: (_) {
                 return NewTransaction();
               },
             ),
           );
+          if (needsRefresh) {
+            _loadData();
+          }
         },
         child: Icon(Icons.add),
       ),
