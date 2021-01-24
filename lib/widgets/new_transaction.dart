@@ -71,8 +71,49 @@ class _NewTransactionState extends State<NewTransaction> {
         txDate: _txDate,
         categoryType: _selectedCategoryType,
         primaryAccountId: _selectedFromAccount,
-        categoryId: 0,
+        categoryId: _selectedExpenseCategory,
       ));
+      return;
+    }
+
+    if (_selectedCategoryType == CategoryType.income) {
+      if (_selectedIncomeCategory == -1) {
+        throw UserInputException('Expense Category is not selected!');
+      }
+
+      if (_selectedFromAccount == -1) {
+        throw UserInputException('Account is not seleted!');
+      }
+
+      DataStore.addTx(Transaction(
+        description: descController.text,
+        amount: double.parse(amount),
+        txDate: _txDate,
+        categoryType: _selectedCategoryType,
+        primaryAccountId: _selectedFromAccount,
+        categoryId: _selectedIncomeCategory,
+      ));
+      return;
+    }
+
+    if (_selectedCategoryType == CategoryType.transfer) {
+      if (_selectedFromAccount == -1) {
+        throw UserInputException('From Account is not seleted!');
+      }
+
+      if (_selectedToAccount == -1) {
+        throw UserInputException('To Account is not seleted!');
+      }
+
+      DataStore.addTx(Transaction(
+        description: descController.text,
+        amount: double.parse(amount),
+        txDate: _txDate,
+        categoryType: _selectedCategoryType,
+        primaryAccountId: _selectedFromAccount,
+        secondaryAccountId: _selectedToAccount,
+      ));
+      return;
     }
   }
 
