@@ -5,7 +5,7 @@ class Account extends GenericModel {
   final double currBalance;
 
   Account({
-    String title,
+    @required String title,
     @required this.currBalance,
     int id,
   }) : super(title: title, id: id);

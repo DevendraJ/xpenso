@@ -2,6 +2,7 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:xpenso/utility/data_store.dart';
+import 'package:xpenso/widgets/account_list.dart';
 import 'package:xpenso/widgets/app_drawer.dart';
 import 'package:xpenso/widgets/month_overview.dart';
 import 'package:xpenso/widgets/new_transaction.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Xpenso',
       home: MyHomePage(),
       theme: ThemeData(
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         "/home": (_) => MyHomePage(),
+        "/accounts": (_) => AccountList(),
       },
     );
   }
@@ -44,8 +47,13 @@ class _MyHomePageState extends State<MyHomePage> {
     var appBar = AppBar(
       title: RaisedButton(
         elevation: 5,
-        color: Colors.orange[200],
-        child: Text(dataMonthText),
+        color: Colors.white,
+        child: Text(
+          dataMonthText,
+          style: TextStyle(
+            color: Colors.orange,
+          ),
+        ),
         onPressed: () {
           showMonthPicker(
             context: context,

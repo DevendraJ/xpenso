@@ -25,9 +25,15 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            title: Text('Accounts'),
+            onTap: () {
+              Navigator.popAndPushNamed(context, '/accounts');
+            },
+          ),
+          ListTile(
             title: Text('About'),
             onTap: () {},
-          )
+          ),
         ],
       ),
     );

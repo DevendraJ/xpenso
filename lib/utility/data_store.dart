@@ -156,4 +156,8 @@ class DataStore {
   static List<Account> get getAccounts {
     return _accounts;
   }
+
+  static void addAccount(Account account) {
+    _accounts.add(account);
+  }
 }
