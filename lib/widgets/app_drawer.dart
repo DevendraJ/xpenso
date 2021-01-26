@@ -33,6 +33,13 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: Icon(Icons.beach_access),
+            title: Text('Categories'),
+            onTap: () {
+              Navigator.popAndPushNamed(context, '/categories');
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.alternate_email),
             title: Text('About'),
             onTap: () {

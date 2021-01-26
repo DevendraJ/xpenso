@@ -30,9 +30,6 @@ class _NewTransactionState extends State<NewTransaction> {
     });
   }
 
-  var _accounts = DataStore.getAccounts;
-  var _expenseCategories = DataStore.getCategories;
-  var _incomeCategories = DataStore.getCategories;
   var _txDate = DateTime.now();
 
   var _formKey = GlobalKey<FormState>();
@@ -204,7 +201,8 @@ class _NewTransactionState extends State<NewTransaction> {
                     crossAxisCount: 2,
                     children: [
                       ...(_selectedCategoryType == CategoryType.expense)
-                          ? (_expenseCategories.map((category) {
+                          ? (DataStore.getCategories(CategoryType.expense)
+                              .map((category) {
                               return GestureDetector(
                                 onTap: () {
                                   setState(
@@ -219,7 +217,8 @@ class _NewTransactionState extends State<NewTransaction> {
                                     Colors.indigo[300]),
                               );
                             }))
-                          : (_incomeCategories.map((category) {
+                          : (DataStore.getCategories(CategoryType.income)
+                              .map((category) {
                               return GestureDetector(
                                 onTap: () {
                                   setState(
@@ -254,7 +253,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    ..._accounts.map((account) {
+                    ...DataStore.getAccounts.map((account) {
                       return GestureDetector(
                         onTap: () {
                           setState(() {
@@ -287,7 +286,7 @@ class _NewTransactionState extends State<NewTransaction> {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
-                      ..._accounts.map((account) {
+                      ...DataStore.getAccounts.map((account) {
                         return GestureDetector(
                           onTap: () {
                             setState(() {

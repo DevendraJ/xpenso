@@ -4,6 +4,7 @@ import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:xpenso/utility/data_store.dart';
 import 'package:xpenso/widgets/account_list.dart';
 import 'package:xpenso/widgets/app_drawer.dart';
+import 'package:xpenso/widgets/category_view.dart';
 import 'package:xpenso/widgets/month_overview.dart';
 import 'package:xpenso/widgets/new_transaction.dart';
 import 'package:xpenso/widgets/transaction_list.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/home": (_) => MyHomePage(),
         "/accounts": (_) => AccountList(),
+        "/categories": (_) => CategoryView(),
       },
     );
   }

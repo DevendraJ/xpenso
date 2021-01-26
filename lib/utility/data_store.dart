@@ -126,25 +126,40 @@ class DataStore {
   }
 
   static var _categories = const [
-    Category(id: 1, title: "Food"),
-    Category(id: 2, title: "Entertainment"),
-    Category(id: 3, title: "Fuel"),
-    Category(id: 4, title: "Shopping"),
-    Category(id: 5, title: "Health"),
-    Category(id: 6, title: "Travel"),
-    Category(id: 7, title: "Alcohol"),
-    Category(id: 8, title: "Cigarette"),
-    Category(id: 1, title: "Food"),
-    Category(id: 2, title: "Entertainment"),
-    Category(id: 3, title: "Fuel"),
-    Category(id: 4, title: "Shopping"),
-    Category(id: 5, title: "Health"),
-    Category(id: 6, title: "Travel"),
-    Category(id: 7, title: "Alcohol"),
+    // expense
+    Category(id: 1, title: "Food", type: CategoryType.expense),
+    Category(id: 2, title: "Entertainment", type: CategoryType.expense),
+    Category(id: 3, title: "Fuel", type: CategoryType.expense),
+    Category(id: 4, title: "Shopping", type: CategoryType.expense),
+    Category(id: 5, title: "Health", type: CategoryType.expense),
+    Category(id: 6, title: "Travel", type: CategoryType.expense),
+    Category(id: 7, title: "Alcohol", type: CategoryType.expense),
+    Category(id: 8, title: "Cigarette", type: CategoryType.expense),
+    Category(id: 9, title: "Bills", type: CategoryType.expense),
+    Category(id: 10, title: "Education", type: CategoryType.expense),
+    Category(id: 11, title: "Transport", type: CategoryType.expense),
+    Category(id: 12, title: "Pets", type: CategoryType.expense),
+    Category(id: 13, title: "Office", type: CategoryType.expense),
+    Category(id: 14, title: "Others", type: CategoryType.expense),
+
+    // income
+    Category(id: 15, title: "Salary", type: CategoryType.income),
+    Category(id: 16, title: "Award", type: CategoryType.income),
+    Category(id: 17, title: "Refund", type: CategoryType.income),
+    Category(id: 18, title: "Loan Recieved", type: CategoryType.income),
+    Category(id: 19, title: "Investment", type: CategoryType.income),
+    Category(id: 20, title: "Pension", type: CategoryType.income),
+    Category(id: 21, title: "Allowance", type: CategoryType.income),
+    Category(id: 22, title: "Bonus", type: CategoryType.income),
+    Category(id: 23, title: "Pocket Money", type: CategoryType.income),
+    Category(id: 24, title: "Other", type: CategoryType.income),
+    Category(id: 25, title: "Commission", type: CategoryType.income),
   ];
 
-  static List<Category> get getCategories {
-    return _categories;
+  static List<Category> getCategories(CategoryType categoryType) {
+    return _categories
+        .where((category) => category.type == categoryType)
+        .toList();
   }
 
   static var _accounts = [
