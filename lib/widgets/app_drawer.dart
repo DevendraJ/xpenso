@@ -19,20 +19,25 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            leading: Icon(Icons.home),
             title: Text('Home'),
             onTap: () {
               Navigator.popAndPushNamed(context, '/home');
             },
           ),
           ListTile(
+            leading: Icon(Icons.account_balance_wallet),
             title: Text('Accounts'),
             onTap: () {
               Navigator.popAndPushNamed(context, '/accounts');
             },
           ),
           ListTile(
+            leading: Icon(Icons.alternate_email),
             title: Text('About'),
-            onTap: () {},
+            onTap: () {
+              showAboutDialog(context: context);
+            },
           ),
         ],
       ),

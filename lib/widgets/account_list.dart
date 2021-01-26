@@ -78,6 +78,7 @@ class AccountDialog extends StatelessWidget {
               TextFormField(
                 controller: nameController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
+                textCapitalization: TextCapitalization.words,
                 maxLines: 1,
                 decoration: InputDecoration(
                   labelText: 'Account Name',

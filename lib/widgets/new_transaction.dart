@@ -322,6 +322,7 @@ class _NewTransactionState extends State<NewTransaction> {
               SizedBox(height: 10),
               TextFormField(
                 keyboardType: TextInputType.text,
+                textCapitalization: TextCapitalization.words,
                 maxLines: 1,
                 decoration: InputDecoration(
                     labelText: 'Description',
