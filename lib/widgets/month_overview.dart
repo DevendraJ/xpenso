@@ -11,7 +11,7 @@ class MonthOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Card(
-        elevation: 5,
+        elevation: 2,
         margin: EdgeInsets.all(15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

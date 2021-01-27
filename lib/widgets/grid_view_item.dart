@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xpenso/model/generic_model.dart';
+import 'package:xpenso/utility/data_store.dart';
 
 class GridViewItem<T extends GenericModel> extends StatelessWidget {
   final bool _isSelected;
@@ -22,9 +23,9 @@ class GridViewItem<T extends GenericModel> extends StatelessWidget {
               )),
           child: Padding(
             padding: EdgeInsets.all(10),
-            child: Icon(
-              Icons.account_balance,
-              color: Colors.grey,
+            child: Image.asset(
+              DataStore.getAppImage(_model.imageId).imagePath,
+              height: 35,
             ),
           ),
         ),
