@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:xpenso/model/generic_model.dart';
 import 'package:xpenso/utility/data_store.dart';
 
 class GridViewItem<T extends GenericModel> extends StatelessWidget {

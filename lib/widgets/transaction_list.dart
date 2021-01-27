@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xpenso/model/transaction.dart';
+import 'package:xpenso/utility/data_store.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> txList;

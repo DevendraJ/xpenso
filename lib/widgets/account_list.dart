@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:xpenso/model/account.dart';
 import 'package:xpenso/utility/data_store.dart';
 
 class AccountList extends StatefulWidget {

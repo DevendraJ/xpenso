@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart' as F;
+import 'package:flutter/material.dart';
 import 'package:xpenso/constants/category_type.dart';
-import 'package:xpenso/model/account.dart';
-import 'package:xpenso/model/category.dart';
-import 'package:xpenso/model/transaction.dart';
 
 class DataStore {
   static List<Transaction> _transactions = <Transaction>[
@@ -228,6 +226,62 @@ class DataStore {
       return _images.first;
     }
   }
+}
+
+class GenericModel {
+  final int id;
+  final String title;
+  final int imageId;
+
+  const GenericModel({
+    @required this.title,
+    this.id = 0,
+    this.imageId,
+  });
+}
+
+class Account extends GenericModel {
+  final double currBalance;
+
+  Account({
+    @required String title,
+    @required this.currBalance,
+    int id,
+  }) : super(title: title, id: id);
+}
+
+class Category extends GenericModel {
+  final CategoryType type;
+
+  const Category({
+    this.type = CategoryType.expense,
+    String title,
+    int imageId,
+    int id,
+  }) : super(title: title, id: id, imageId: imageId);
+}
+
+class Transaction {
+  int id;
+  String description;
+  double amount;
+  DateTime txDate;
+  DateTime updatedOn = DateTime.now();
+  CategoryType categoryType;
+  int primaryAccountId;
+  int secondaryAccountId;
+  int categoryId;
+
+  Transaction({
+    this.id,
+    @required this.description,
+    @required this.amount,
+    @required this.txDate,
+    @required this.categoryType,
+    @required this.primaryAccountId,
+    this.secondaryAccountId,
+    this.categoryId,
+  });
 }
 
 class AppImage {
