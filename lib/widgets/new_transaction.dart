@@ -211,9 +211,12 @@ class _NewTransactionState extends State<NewTransaction> {
                                   );
                                 },
                                 child: GridViewItem(
-                                    category,
-                                    category.id == _selectedExpenseCategory,
-                                    Colors.indigo[300]),
+                                  category,
+                                  category.id == _selectedExpenseCategory,
+                                  Theme.of(context)
+                                      .accentColor
+                                      .withOpacity(0.5),
+                                ),
                               );
                             }))
                           : (DataStore.getCategories(CategoryType.income)
@@ -227,9 +230,12 @@ class _NewTransactionState extends State<NewTransaction> {
                                   );
                                 },
                                 child: GridViewItem(
-                                    category,
-                                    category.id == _selectedIncomeCategory,
-                                    Colors.indigo[300]),
+                                  category,
+                                  category.id == _selectedIncomeCategory,
+                                  Theme.of(context)
+                                      .accentColor
+                                      .withOpacity(0.5),
+                                ),
                               );
                             }))
                     ],
@@ -262,7 +268,7 @@ class _NewTransactionState extends State<NewTransaction> {
                         child: ListViewTextItem(
                           account.title,
                           _selectedFromAccount == account.id,
-                          Colors.indigo[300],
+                          Theme.of(context).accentColor.withOpacity(0.5),
                         ),
                       );
                     })
@@ -295,7 +301,7 @@ class _NewTransactionState extends State<NewTransaction> {
                           child: ListViewTextItem(
                             account.title,
                             (_selectedToAccount == account.id),
-                            Colors.indigo[300],
+                            Theme.of(context).accentColor.withOpacity(0.5),
                           ),
                         );
                       })
@@ -344,7 +350,7 @@ class _NewTransactionState extends State<NewTransaction> {
                   FlatButton(
                     height: 60,
                     child: Text('Save'),
-                    color: Colors.indigo[300],
+                    color: Theme.of(context).accentColor.withOpacity(0.8),
                     minWidth: MediaQuery.of(context).size.width / 2,
                     onPressed: () {
                       try {

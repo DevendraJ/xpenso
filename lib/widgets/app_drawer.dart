@@ -15,7 +15,14 @@ class AppDrawer extends StatelessWidget {
               ),
             ),
             decoration: BoxDecoration(
-              color: Colors.blueGrey[300],
+              gradient: LinearGradient(
+                colors: [
+                  Colors.orange[900],
+                  Colors.orange,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
             ),
           ),
           ListTile(
