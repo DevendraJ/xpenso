@@ -72,6 +72,7 @@ flutter:
     - assets/images/bonus.png
     - assets/images/pocket.png
     - assets/images/commission.png
+    - assets/images/transfer.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

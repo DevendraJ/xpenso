@@ -11,6 +11,7 @@ class DataStore {
       txDate: DateTime(2020, 10, 10),
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
+      // categoryId: 1,
     ),
     Transaction(
       id: 1,
@@ -19,6 +20,7 @@ class DataStore {
       txDate: DateTime(2020, 10, 10),
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
+      categoryId: 2,
     ),
     Transaction(
       id: 2,
@@ -27,15 +29,16 @@ class DataStore {
       txDate: DateTime(2020, 10, 10),
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
+      categoryId: 3,
     ),
     Transaction(
-      id: 3,
-      description: "Sample 1",
-      amount: 76,
-      txDate: DateTime(2020, 10, 10),
-      categoryType: CategoryType.expense,
-      primaryAccountId: 1,
-    ),
+        id: 3,
+        description: "Sample 1",
+        amount: 76,
+        txDate: DateTime(2020, 10, 10),
+        categoryType: CategoryType.expense,
+        primaryAccountId: 1,
+        categoryId: 4),
     Transaction(
       id: 4,
       description: "Sample",
@@ -43,6 +46,7 @@ class DataStore {
       txDate: DateTime(2020, 10, 10),
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
+      categoryId: 5,
     ),
     Transaction(
       id: 5,
@@ -51,6 +55,7 @@ class DataStore {
       txDate: DateTime(2020, 10, 10),
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
+      categoryId: 6,
     ),
     Transaction(
       id: 6,
@@ -59,6 +64,7 @@ class DataStore {
       txDate: DateTime(2020, 10, 10),
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
+      categoryId: 7,
     ),
     Transaction(
       id: 7,
@@ -67,6 +73,7 @@ class DataStore {
       txDate: DateTime(2020, 10, 10),
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
+      categoryId: 8,
     ),
     Transaction(
       id: 8,
@@ -75,6 +82,7 @@ class DataStore {
       txDate: DateTime(2020, 10, 10),
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
+      categoryId: 9,
     ),
     Transaction(
       id: 9,
@@ -83,6 +91,7 @@ class DataStore {
       txDate: DateTime(2020, 10, 10),
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
+      categoryId: 10,
     ),
     Transaction(
       id: 10,
@@ -91,6 +100,7 @@ class DataStore {
       txDate: DateTime(2020, 10, 10),
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
+      categoryId: 11,
     ),
     Transaction(
       id: 11,
@@ -99,6 +109,7 @@ class DataStore {
       txDate: DateTime(2020, 10, 10),
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
+      categoryId: 12,
     ),
   ];
 
@@ -166,6 +177,10 @@ class DataStore {
         .toList();
   }
 
+  static Category getCategory(int id) {
+    return _categories.singleWhere((category) => category.id == id);
+  }
+
   static var _accounts = <Account>[
     Account(title: 'Syndicate', currBalance: 1007.0, id: 0),
     Account(title: 'Axis', currBalance: 20.7, id: 1),
@@ -216,6 +231,8 @@ class DataStore {
         id: 22, name: 'Pocket Money', imagePath: 'assets/images/pocket.png'),
     AppImage(
         id: 23, name: 'Commission', imagePath: 'assets/images/commission.png'),
+
+    AppImage(id: 24, name: 'Transfer', imagePath: 'assets/images/transfer.png'),
   ];
 
   static AppImage getAppImage(int id) {
@@ -225,6 +242,10 @@ class DataStore {
       print('image with id:$id not found');
       return _images.first;
     }
+  }
+
+  static AppImage get defaultAppImage {
+    return _images.singleWhere((image) => 'Transfer' == image.name);
   }
 }
 
