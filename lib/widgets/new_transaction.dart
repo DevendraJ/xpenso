@@ -254,7 +254,7 @@ class _NewTransactionState extends State<NewTransaction> {
               ),
               SizedBox(height: 10),
               Container(
-                height: 70,
+                height: 60,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
@@ -268,7 +268,6 @@ class _NewTransactionState extends State<NewTransaction> {
                         child: ListViewTextItem(
                           account.title,
                           _selectedFromAccount == account.id,
-                          Theme.of(context).accentColor.withOpacity(0.5),
                         ),
                       );
                     })
@@ -287,7 +286,7 @@ class _NewTransactionState extends State<NewTransaction> {
               SizedBox(height: 10),
               if (_selectedCategoryType == CategoryType.transfer)
                 Container(
-                  height: 70,
+                  height: 60,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
@@ -301,14 +300,14 @@ class _NewTransactionState extends State<NewTransaction> {
                           child: ListViewTextItem(
                             account.title,
                             (_selectedToAccount == account.id),
-                            Theme.of(context).accentColor.withOpacity(0.5),
                           ),
                         );
                       })
                     ],
                   ),
                 ),
-              SizedBox(height: 10),
+              if (_selectedCategoryType == CategoryType.transfer)
+                SizedBox(height: 10),
               DateTimePicker(
                 firstDate: DateTime(2000),
                 lastDate: DateTime(3000),
@@ -343,13 +342,23 @@ class _NewTransactionState extends State<NewTransaction> {
                       Navigator.of(context).pop(false);
                     },
                     height: 60,
-                    child: Text('Cancel'),
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Theme.of(context).accentColor.withOpacity(0.8),
+                      ),
+                    ),
                     color: Colors.grey[300],
                     minWidth: MediaQuery.of(context).size.width / 2,
                   ),
                   FlatButton(
                     height: 60,
-                    child: Text('Save'),
+                    child: Text(
+                      'Save',
+                      style: TextStyle(
+                        color: Colors.grey[300],
+                      ),
+                    ),
                     color: Theme.of(context).accentColor.withOpacity(0.8),
                     minWidth: MediaQuery.of(context).size.width / 2,
                     onPressed: () {

@@ -24,7 +24,7 @@ class GridViewItem<T extends GenericModel> extends StatelessWidget {
             padding: EdgeInsets.all(10),
             child: Image.asset(
               DataStore.getAppImage(_model.imageId).imagePath,
-              height: 35,
+              height: 30,
             ),
           ),
         ),
