@@ -334,49 +334,48 @@ class _NewTransactionState extends State<NewTransaction> {
                     )),
                 controller: descController,
               ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(false);
-                    },
-                    height: 60,
-                    child: Text(
-                      'Cancel',
-                      style: TextStyle(
-                        color: Theme.of(context).accentColor.withOpacity(0.8),
-                      ),
-                    ),
-                    color: Colors.grey[300],
-                    minWidth: MediaQuery.of(context).size.width / 2,
-                  ),
-                  FlatButton(
-                    height: 60,
-                    child: Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.grey[300],
-                      ),
-                    ),
-                    color: Theme.of(context).accentColor.withOpacity(0.8),
-                    minWidth: MediaQuery.of(context).size.width / 2,
-                    onPressed: () {
-                      try {
-                        saveTransaction();
-                        Navigator.of(context).pop(true);
-                      } on UserInputException catch (e) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text(e.cause),
-                        ));
-                      }
-                    },
-                  )
-                ],
-              ),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: Row(
+        children: [
+          FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            height: 60,
+            child: Text(
+              'Cancel',
+              style: TextStyle(
+                color: Theme.of(context).accentColor.withOpacity(0.8),
+              ),
+            ),
+            color: Colors.grey[300],
+            minWidth: MediaQuery.of(context).size.width / 2,
+          ),
+          FlatButton(
+            height: 60,
+            child: Text(
+              'Save',
+              style: TextStyle(
+                color: Colors.grey[300],
+              ),
+            ),
+            color: Theme.of(context).accentColor.withOpacity(0.8),
+            minWidth: MediaQuery.of(context).size.width / 2,
+            onPressed: () {
+              try {
+                saveTransaction();
+                Navigator.of(context).pop(true);
+              } on UserInputException catch (e) {
+                _scaffoldKey.currentState.showSnackBar(SnackBar(
+                  content: Text(e.cause),
+                ));
+              }
+            },
+          )
+        ],
       ),
     );
   }

@@ -12,6 +12,7 @@ class DataStore {
       categoryType: CategoryType.expense,
       primaryAccountId: 1,
       // categoryId: 1,
+      isDeleted: true,
     ),
     Transaction(
       id: 1,
@@ -114,7 +115,7 @@ class DataStore {
   ];
 
   static List<Transaction> getTransactionsForMonth(DateTime dataMonth) {
-    return _transactions;
+    return _transactions.where((tx) => !tx.isDeleted).toList();
   }
 
   static void addTx(Transaction tx) {
@@ -292,6 +293,7 @@ class Transaction {
   int primaryAccountId;
   int secondaryAccountId;
   int categoryId;
+  bool isDeleted;
 
   Transaction({
     this.id,
@@ -302,6 +304,7 @@ class Transaction {
     @required this.primaryAccountId,
     this.secondaryAccountId,
     this.categoryId,
+    this.isDeleted = false,
   });
 }
 
